@@ -1,6 +1,6 @@
 {
   "name": "react-marked-markdown",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Some React Components to use Markdown easily",
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.x.x",
+    "marked": "^0.3.5",
     "react": "^0.14.8"
   }
 }

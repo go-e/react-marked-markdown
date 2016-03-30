@@ -1,41 +1,114 @@
-# npm-base
+# React Marked Markdown
 
-A base package for creating NPM packages with ES2015.
+A react components package that helps you use Markdown easily.
 
 ---
 
-Writing in ES2015 is an amazing experience. Setting up babel and the development environment in a kind of a pain.
-
-If you want to write a **NPM module** in ES2015 and publish to NPM with backward compatibility, this is the **easiest** way.
+Writing in Markdown is an amazing experience. Setting up all components and parser is kind of a pain.
 
 ## Basic Usage
 
-* Simply clone [this](https://github.com/kadirahq/npm-base) project.
-* Change the `package.json` as you want.
-* `lib/index.js` in your entry point.
-* Then publish to npm via `npm publish`.
+* Install with `npm i react-marked-markdown --save`
+* Import component(s) you want
+```js
+import {MarkdownPreview} from 'react-marked-markdown';
+```
+or
+```js
+import {MarkdownPreview, MarkdownInput} from 'react-marked-markdown';
+```
 
-## Linting
+## MarkdownPreview
 
-* ESLINT support is added to the project.
-* It's configured for ES2015 and inherited configurations from [graphql/graphql-js](https://github.com/graphql/graphql-js).
-* Use `npm run lint` to lint your code and `npm run lintfix` to fix common issues.
+### Basic Markdown view
 
-## Testing
+Display Markdown is really easy with **MarkdownPreview** component.
 
-* You can write test under `__test__` directory anywhere inside `lib` including sub-directories.
-* Then run `npm test` to test your code. (It'll lint your code as well).
-* You can also run `npm run testonly` to run tests without linting.
+Here is an example :
+```js
+import React from 'react';
 
-## ES2015 Setup
+import { MarkdownPreview } from 'react-marked-markdown';
 
-* ES2015 support is added with babel6.
-* After you publish your project to NPM, it can be run on older node versions and browsers without the support of Babel.
-* This project uses ES2015 and some of the upcoming features like `async await`.
-* You can change them with adding and removing [presets](http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/).
-* All the polyfills you use are taken from the local `babel-runtime` package. So, this package won't add any global polyfills and pollute the global namespace.
+const Post = ({post}) => (
+  <div>
+    <h1>{post.title}</h1>
+    <MarkdownPreview value={post.content}/>
+  </div>
+);
 
-## Kudos
+export default Post;
 
-* Babel6 and the team behind it.
-* Facebook's [graphql-js](https://github.com/graphql/graphql-js) authors for ESLint configurations and for the directory structure.
+```
+
+### Parsing options
+
+Behind the scenes, `react-marked-markdown` uses `marked` as Markdown parser.
+So all marked options are available here.
+
+Here is an example with default options :
+
+```js
+<MarkdownPreview
+  value="# Hey !"
+  markedOptions={{
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+  }} />
+```
+
+A list of options can be found [here](https://github.com/chjj/marked).
+
+## Markdown Editor
+
+You can even create your own Markdown Editor with `MarkdownPreview` and `MarkdownInput` components.
+
+As an example here is the included editor named `LiveMarkdownTextarea` that is a textarea with a live preview :
+
+```js
+import React from 'react';
+import { MarkdownPreview, MarkdownInput } from 'react-marked-markdown';
+
+export default class LiveMarkdownTextarea extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.defaultValue ? props.defaultValue : ''
+    };
+  }
+  handleTextChange(e) {
+    this.setState({value: e.target.value});
+    if (this.props.onTextChange) {
+      this.props.onTextChange(e.target.value);
+    }
+  }
+  clear() {
+    this.setState({value: ''});
+  }
+  render() {
+    let {placeholder} = this.props;
+    let {value} = this.state;
+    return (
+    <section>
+        <MarkdownInput
+          placeholder={placeholder}
+          onChange={this.handleTextChange.bind(this)}
+          value={value} />
+
+        <MarkdownPreview
+          markedOptions={ {} }
+          value={value} />
+    </section>
+    );
+  }
+}
+```
+
+Note that here `markedOptions` is an empty object so the entire prop is useless but it's there to show that we can override default options.
+
+There is also a `clear()` method that we can call from parent component to clear the editor.

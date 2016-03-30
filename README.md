@@ -24,11 +24,11 @@ import {MarkdownPreview, MarkdownInput} from 'react-marked-markdown';
 
 Display Markdown is really easy with **MarkdownPreview** component.
 
-Here is an example :
+Here is a simple example :
 ```js
 import React from 'react';
 
-import { MarkdownPreview } from 'react-marked-markdown';
+import {MarkdownPreview} from 'react-marked-markdown';
 
 const Post = ({post}) => (
   <div>
@@ -44,7 +44,7 @@ export default Post;
 ### Parsing options
 
 Behind the scenes, `react-marked-markdown` uses `marked` as Markdown parser.
-So all marked options are available here.
+So all `marked` options are available here.
 
 Here is an example with default options :
 
@@ -72,7 +72,7 @@ As an example here is the included editor named `LiveMarkdownTextarea` that is a
 
 ```js
 import React from 'react';
-import { MarkdownPreview, MarkdownInput } from 'react-marked-markdown';
+import {MarkdownPreview, MarkdownInput} from 'react-marked-markdown';
 
 export default class LiveMarkdownTextarea extends React.Component {
   constructor(props) {
@@ -112,3 +112,8 @@ export default class LiveMarkdownTextarea extends React.Component {
 Note that here `markedOptions` is an empty object so the entire prop is useless but it's there to show that we can override default options.
 
 There is also a `clear()` method that we can call from parent component to clear the editor.
+
+If you want use it just import it with :
+```js
+import {LiveMarkdownTextarea} from 'react-marked-markdown';
+```

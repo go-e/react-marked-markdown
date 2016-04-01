@@ -25,9 +25,9 @@ export default class MarkdownPreview extends React.Component {
     const { value } = this.props;
     const html = marked(value || '');
 
-    return (<div>
+    return (
       <div dangerouslySetInnerHTML={{__html: html}} />
-    </div>);
+    );
   }
 }
 

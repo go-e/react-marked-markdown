@@ -157,6 +157,7 @@ export default class LiveMarkdownTextarea extends React.Component {
 
         <MarkdownPreview
           value={value}
+          markedOptions={ {} }
           className={previewClassName} />
       </section>
     );

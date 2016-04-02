@@ -22,11 +22,12 @@ export default class MarkdownPreview extends React.Component {
     marked.setOptions(options);
   }
   render() {
-    const { value } = this.props;
+    const { value, className } = this.props;
     const html = marked(value || '');
 
     return (
-      <div dangerouslySetInnerHTML={{__html: html}} />
+      <div dangerouslySetInnerHTML={{__html: html}}
+        className={className} />
     );
   }
 }

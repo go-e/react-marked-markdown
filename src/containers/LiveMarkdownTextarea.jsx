@@ -19,18 +19,24 @@ export default class LiveMarkdownTextarea extends React.Component {
     this.setState({value: ''});
   }
   render() {
-    let {placeholder} = this.props;
-    let {value} = this.state;
+    const {
+      placeholder,
+      className,
+      inputClassName,
+      previewClassName
+    } = this.props;
+    const {value} = this.state;
     return (
-    <section>
+    <section className={className}>
         <MarkdownInput
           placeholder={placeholder}
           onChange={this.handleTextChange.bind(this)}
-          value={value} />
+          value={value}
+          className={inputClassName} />
 
         <MarkdownPreview
-          markedOptions={ {} }
-          value={value} />
+          value={value}
+          className={previewClassName} />
     </section>
     );
   }

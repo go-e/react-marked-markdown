@@ -27,7 +27,7 @@ export default class LiveMarkdownTextarea extends React.Component {
     } = this.props;
     const {value} = this.state;
     return (
-    <section className={className}>
+      <section className={className}>
         <MarkdownInput
           placeholder={placeholder}
           onChange={this.handleTextChange.bind(this)}
@@ -37,7 +37,7 @@ export default class LiveMarkdownTextarea extends React.Component {
         <MarkdownPreview
           value={value}
           className={previewClassName} />
-    </section>
+      </section>
     );
   }
 }

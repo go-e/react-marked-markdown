@@ -64,15 +64,64 @@ Here is an example with default options :
 
 A list of options can be found [here](https://github.com/chjj/marked).
 
-## Markdown Editor
+### CSS Classname
 
-You can even create your own Markdown Editor with **MarkdownPreview** and **MarkdownInput** components.
+All **react-marked-markdown** components are unstyled, this means you can style it as you want. In order to achieve this you can pass classes names as props to every components :
 
-As an example here is the included editor named **LiveMarkdownTextarea** that is a textarea with a live preview :
+```js
+<MarkdownPreview
+  ...
+  className="ui post content" />
+```
+
+## MarkdownInput
+
+This is a stateless textarea component used to edit Markdown, see usage below. You can pass a class name to the textare just like a regular jsx dom element.
+
+```js
+<MarkdownInput
+  ...
+  className="field" />
+```
+
+## LiveMarkdownTextarea
+
+LiveMarkdownTextarea allows you to write Markdown in a textarea and see a preview of what you are writing.
+
 
 ```js
 import React from 'react';
-import {MarkdownPreview, MarkdownInput} from 'react-marked-markdown';
+import {LiveMarkdownTextarea} from 'react-marked-markdown';
+
+class CreatePost extends React.Component {
+  render() {
+    return (
+      ...
+
+      <LiveMarkdownTextarea
+                  placeholder="Enter your comment here."
+                  ref="commentEditor"
+                  className="row"
+                  inputClassName="field column"
+                  previewClassName="column comment-preview"/>
+
+      ...
+    );
+  }
+}
+```
+
+## Create your own Markdown Editor
+
+You can even create your own Markdown Editor with **MarkdownPreview** and **MarkdownInput** components.
+
+As an example here is the code of **LiveMarkdownTextarea** component.
+
+
+```js
+import React from 'react';
+
+import { MarkdownPreview, MarkdownInput } from 'react-marked-markdown';
 
 export default class LiveMarkdownTextarea extends React.Component {
   constructor(props) {
@@ -91,19 +140,25 @@ export default class LiveMarkdownTextarea extends React.Component {
     this.setState({value: ''});
   }
   render() {
-    let {placeholder} = this.props;
-    let {value} = this.state;
+    const {
+      placeholder,
+      className,
+      inputClassName,
+      previewClassName
+    } = this.props;
+    const {value} = this.state;
     return (
-    <section>
+      <section className={className}>
         <MarkdownInput
           placeholder={placeholder}
           onChange={this.handleTextChange.bind(this)}
-          value={value} />
+          value={value}
+          className={inputClassName} />
 
         <MarkdownPreview
-          markedOptions={ {} }
-          value={value} />
-    </section>
+          value={value}
+          className={previewClassName} />
+      </section>
     );
   }
 }
@@ -112,8 +167,3 @@ export default class LiveMarkdownTextarea extends React.Component {
 Note that here **markedOptions** is an empty object so the entire prop is useless but it's there to show that we can override default options.
 
 There is also a **clear()** method that we can call from parent component to clear the editor.
-
-If you want use it just import it with :
-```js
-import {LiveMarkdownTextarea} from 'react-marked-markdown';
-```

@@ -25,7 +25,7 @@ export default class MarkdownPreview extends React.Component {
     const { value, className } = this.props;
     const renderer = new marked.Renderer();
     renderer.link = ( href, title, text ) => (
-      `<a target="_blank" href="${ href }" title="${ title }">${ text }</a>`
+      `<a target="_blank" rel="noopener noreferrer" href="${ href }" title="${ title }">${ text }</a>`
     );
     const html = marked(value || '', { renderer: renderer});
 

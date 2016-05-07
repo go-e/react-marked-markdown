@@ -17,7 +17,10 @@ export default class MarkdownPreview extends React.Component {
       pedantic: false,
       sanitize: true,
       smartLists: true,
-      smartypants: false
+      smartypants: false,
+      highlight: code => {
+        return require('highlight.js').highlightAuto(code).value;
+      }
     };
     marked.setOptions(options);
   }
@@ -27,7 +30,7 @@ export default class MarkdownPreview extends React.Component {
     renderer.link = ( href, title, text ) => (
       `<a target="_blank" rel="noopener noreferrer" href="${ href }" title="${ title }">${ text }</a>`
     );
-    const html = marked(value || '', { renderer: renderer});
+    const html = marked(value || '', { renderer });
 
     return (
       <div

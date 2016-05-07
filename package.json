@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.x.x",
+    "highlight.js": "^9.3.0",
     "marked": "^0.3.5",
     "react": "^0.14.8"
   }

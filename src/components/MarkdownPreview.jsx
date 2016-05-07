@@ -1,5 +1,6 @@
 import React from 'react';
 import marked from 'marked';
+import hljs from 'highlight.js';
 
 export default class MarkdownPreview extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class MarkdownPreview extends React.Component {
     if (this.props.markedOptions) {
       options = this.props.markedOptions;
     }
+
     options = {
       ...options,
       gfm: true,
@@ -18,8 +20,13 @@ export default class MarkdownPreview extends React.Component {
       sanitize: true,
       smartLists: true,
       smartypants: false,
-      highlight: code => {
-        return require('highlight.js').highlightAuto(code).value;
+      langPrefix: 'hljs ',
+      highlight: (code, lang) => {
+        if (lang && hljs.LANGUAGES.hasOwnProperty(lang)) {
+          return hljs.highlight(lang, code).value;
+        } else {
+          return code;
+        }
       }
     };
     marked.setOptions(options);

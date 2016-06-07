@@ -12,7 +12,6 @@ export default class MarkdownPreview extends React.Component {
     }
 
     options = {
-      ...options,
       gfm: true,
       tables: true,
       breaks: false,
@@ -27,7 +26,8 @@ export default class MarkdownPreview extends React.Component {
         } else {
           return code;
         }
-      }
+      },
+      ...options
     };
     marked.setOptions(options);
   }
